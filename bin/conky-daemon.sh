@@ -9,7 +9,7 @@
 # loaded yet, and a shadow may be drawn around the Conky window embedded in the
 # desktop. 
 echo "Starting Conky daemon soon..." > /var/log/conky.log
-sleep 10
+sleep 30
 
 # A startup application does not have my full custom PATH, so set up a
 # reasonable PATH here. 
