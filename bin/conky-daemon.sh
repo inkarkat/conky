@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # To install this script in Ubuntu:
 # System > Preferences... > Startup Applications > |Add|
 # Name: Conky Desktop Info
@@ -11,6 +11,11 @@
 # Note: The same can be done by passing --pause 30 to conky.
 echo "Starting Conky daemon soon..." > /var/log/conky.log
 sleep 30
+
+# When installed as above (on Ubuntu 14.04), the script is launched directly by
+# lightdm > init, and my .profile hasn't been sourced. I like to use my custom
+# functions (e.g. "callable"), so let's have them here.
+[ -e ~/.profile ] && . ~/.profile
 
 # A startup application does not have my full custom PATH, so set up a
 # reasonable PATH here.
