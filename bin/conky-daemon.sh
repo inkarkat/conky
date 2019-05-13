@@ -12,6 +12,12 @@
 
 exec > "/var/log/$USER/conky.log"; exec 2>&1
 
+# Only start on the main display, not in VNC sessions.
+if [ "$DISPLAY" != ':0' ]; then
+    logf "Won't start on non-default display %s.\\n" "$DISPLAY"
+    exit
+fi
+
 log "Starting Conky daemon soon..."
 sleep 30
 
