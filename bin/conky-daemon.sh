@@ -2,7 +2,7 @@
 # To install this script in Ubuntu:
 # System > Preferences... > Startup Applications > |Add|
 # Name: Conky Desktop Info
-# Command: /home/inkarkat/bin/conky-daemon.sh
+# Command: /path/to/conky-daemon.sh
 # Comment: Periodically updating desktop background with system and user information.
 
 # Without a short delay, the user's Compiz configuration may not have been
