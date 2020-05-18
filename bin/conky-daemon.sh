@@ -26,9 +26,5 @@ sleep 30
 # functions (e.g. "callable"), so let's have them here.
 [ -e ~/.profile ] && . ~/.profile
 
-# A startup application does not have my full custom PATH, so set up a
-# reasonable PATH here.
-export PATH=$HOME/local/bin:$HOME/bin:$PATH
-
 log "Starting Conky daemon now..."
 /usr/bin/conky -d
