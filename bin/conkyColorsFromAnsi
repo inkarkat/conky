@@ -1,4 +1,4 @@
-#!/usr/bin/perl -p
+#!/usr/bin/env perl
 
 # Source: https://metacpan.org/dist/Color-ANSI-Util/source/lib/Color/ANSI/Util.pm
 my %ansi16 = (
@@ -82,5 +82,22 @@ sub translateRGB {
     return sprintf("{color #%02x%02x%02x}%s{color}", $red, $green, $blue, $text);
 }
 
-s/\[38;2;(\d{1,3});(\d{1,3});(\d{1,3})m([^]*)\[0{0,2}m/translateRGB($1, $2, $3, $4)/ge;
-s/\[38;5;(\d{1,3})m([^]*)\[0{0,2}m/translate256($1, $2)/ge;
+if ($ARGV[0] eq '--help') {
+    use File::Basename;
+    my $scriptName = basename($0);
+    print <<EOF;
+Convert foreground colors set via ANSI escape sequences (256 and true color
+forms) to Conky {color #RRGGBB} tags.
+
+Usage: $scriptName [--] FILE [...] [--help]
+Usage: cat FILE [...] | $scriptName
+EOF
+    exit ($#ARGV < 0 ? 2 : 0);
+}
+shift if $ARGV[0] eq '--';
+
+while (<>) {
+    s/\[38;2;(\d{1,3});(\d{1,3});(\d{1,3})m([^]*)\[0{0,2}m/translateRGB($1, $2, $3, $4)/ge;
+    s/\[38;5;(\d{1,3})m([^]*)\[0{0,2}m/translate256($1, $2)/ge;
+    print;
+}
