@@ -1,0 +1,8 @@
+#!/usr/bin/perl -p
+
+sub translateRGB {
+    my ($red, $green, $blue, $text) = @_;
+    return sprintf("{color #%02x%02x%02x}%s{color}", $red, $green, $blue, $text);
+}
+
+s/\[38;2;(\d{1,3});(\d{1,3});(\d{1,3})m([^]*)\[0{0,2}m/translateRGB($1, $2, $3, $4)/ge;
