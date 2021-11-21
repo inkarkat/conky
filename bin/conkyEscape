@@ -1,0 +1,9 @@
+#!/bin/sed -f
+
+## Escape output for Conky.
+##
+## Usage: conkyEscape FILE [...]
+## Usage: cat FILE [...] | conkyEscape
+
+s/#/\\&/g
+s/\$/&&/g
