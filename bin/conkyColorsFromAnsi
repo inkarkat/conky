@@ -74,12 +74,12 @@ sub ansi256ToRgb {
 }
 sub translate256 {
     my ($index, $text) = @_;
-    return sprintf("{color #%s}%s{color}", ansi256ToRgb($index), $text);
+    return sprintf('${color #%s}%s${color}', ansi256ToRgb($index), $text);
 }
 
 sub translateRGB {
     my ($red, $green, $blue, $text) = @_;
-    return sprintf("{color #%02x%02x%02x}%s{color}", $red, $green, $blue, $text);
+    return sprintf('${color #%02x%02x%02x}%s${color}', $red, $green, $blue, $text);
 }
 
 if ($ARGV[0] eq '--help') {
@@ -87,7 +87,7 @@ if ($ARGV[0] eq '--help') {
     my $scriptName = basename($0);
     print <<EOF;
 Convert foreground colors set via ANSI escape sequences (256 and true color
-forms) to Conky {color #RRGGBB} tags.
+forms) to Conky \${color #RRGGBB} tags.
 
 Usage: $scriptName [--] FILE [...] [--help]
 Usage: cat FILE [...] | $scriptName
