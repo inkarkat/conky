@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 
+use strict;
+
 # Source: https://metacpan.org/dist/Color-ANSI-Util/source/lib/Color/ANSI/Util.pm
 my %ansi16 = (
     0  => '000000',
