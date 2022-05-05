@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=withUnixhome conky-daemon.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Conky Desktop info
+Name=Conky Desktop info
+Comment[en_US]=Periodically updating desktop background with system and user information.
+Comment=Periodically updating desktop background with system and user information.
