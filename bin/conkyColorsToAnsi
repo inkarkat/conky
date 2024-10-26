@@ -2,6 +2,8 @@
 
 use strict;
 
+my $defaultColor = $ENV{'CONKY_DEFAULT_COLOR'} || '0';
+
 my %literalToAnsi = (
     black => 30,
     red => 31,
@@ -29,7 +31,7 @@ if ($ARGV[0] eq '--help') {
 Convert foreground colors set via ANSI escape sequences (256 and true color
 forms) to Conky \${color #RRGGBB} tags.
 
-Usage: $scriptName [--] FILE [...] [--help]
+Usage: [CONKY_DEFAULT_COLOR=37] $scriptName [--] FILE [...] [--help]
 Usage: cat FILE [...] | $scriptName
 EOF
     exit ($#ARGV < 0 ? 2 : 0);
@@ -37,7 +39,7 @@ EOF
 shift if $ARGV[0] eq '--';
 
 while (<>) {
-    s/\$\{color\}/\e[0m/g;
+    s/\$\{color\}/"\e[" . $defaultColor . "m"/ge;
     s/\$\{color (\w+)\}/translateLiteral($1)/ge;
     s/\$\{color #([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})\}/translateRGB(hex($1), hex($2), hex($3))/ge;
     print;
