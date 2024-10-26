@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+
+use strict;
+
+my %literalToAnsi = (
+    black => 30,
+    red => 31,
+    green => 32,
+    yellow => 33,
+    blue => 34,
+    magenta => 35,
+    cyan => 36,
+    white => 37,
+);
+sub translateLiteral {
+    my ($color) = @_;
+    return sprintf("\e[%dm", ${literalToAnsi}{$color});
+}
+
+sub translateRGB {
+    my ($red, $green, $blue, $text) = @_;
+    return sprintf("\e[38;2;%d;%d;%dm", $red, $green, $blue);
+}
+
+if ($ARGV[0] eq '--help') {
+    use File::Basename;
+    my $scriptName = basename($0);
+    print <<EOF;
+Convert foreground colors set via ANSI escape sequences (256 and true color
+forms) to Conky \${color #RRGGBB} tags.
+
+Usage: $scriptName [--] FILE [...] [--help]
+Usage: cat FILE [...] | $scriptName
+EOF
+    exit ($#ARGV < 0 ? 2 : 0);
+}
+shift if $ARGV[0] eq '--';
+
+while (<>) {
+    s/\$\{color\}/\e[0m/g;
+    s/\$\{color (\w+)\}/translateLiteral($1)/ge;
+    s/\$\{color #([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})\}/translateRGB(hex($1), hex($2), hex($3))/ge;
+    print;
+}
